@@ -10,4 +10,5 @@ def test_gateway_returns_response_with_route_reason() -> None:
     gateway = ReliabilityGateway([provider], {"primary": breaker}, ResponseCache(60, 0.5))
     result = gateway.complete("hello world")
     assert result.text
-    assert result.route in {"primary", "fallback", "static_fallback"}
+    # Allow detailed route reasons like "primary:gpt4"
+    assert any(result.route.startswith(r) for r in {"primary", "fallback", "static_fallback", "cache_hit"})

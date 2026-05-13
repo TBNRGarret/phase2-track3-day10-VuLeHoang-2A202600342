@@ -1,6 +1,9 @@
-from __future__ import annotations
-
 import argparse
+import sys
+from pathlib import Path
+
+# Add src to sys.path to allow running from root without PYTHONPATH
+sys.path.append(str(Path(__file__).parent.parent / "src"))
 
 from reliability_lab.chaos import load_queries, run_simulation
 from reliability_lab.config import load_config
